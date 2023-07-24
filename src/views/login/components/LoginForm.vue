@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" size="large">
     <el-form-item prop="loginAccount">
       <el-input v-model="loginForm.loginAccount" placeholder="用户名：admin / user">
@@ -49,17 +49,13 @@ import { getTimeState } from "@/utils";
 import { Login } from "@/interface/login";
 import { ElNotification } from "element-plus";
 import { getCaptcha, loginApi } from "@/api/modules/login";
-import { useUserStore } from "@/stores/modules/user";
-import { useTabsStore } from "@/stores/modules/tabs";
-import { useKeepAliveStore } from "@/stores/modules/keepAlive";
-import { initDynamicRouter } from "@/routers/modules/dynamicRouter";
+import { useUserStore } from "@/store/modules/user";
+import { initDynamicRouter } from "@/router/modules/dynamicRouter";
 import { CircleClose, UserFilled } from "@element-plus/icons-vue";
 import type { ElForm } from "element-plus";
 
 const router = useRouter();
 const userStore = useUserStore();
-const tabsStore = useTabsStore();
-const keepAliveStore = useKeepAliveStore();
 
 type FormInstance = InstanceType<typeof ElForm>;
 const loginFormRef = ref<FormInstance>();
@@ -95,20 +91,16 @@ const login = (formEl: FormInstance | undefined) => {
       const { data } = await loginApi({ ...loginForm });
       console.log(data);
 
-      userStore.setToken(data.token);
+      userStore.setUserInfo(data);
 
       // 2.添加动态路由
       await initDynamicRouter();
 
-      // 3.清空 tabs、keepAlive 数据
-      tabsStore.closeMultipleTab();
-      keepAliveStore.setKeepAliveName();
-
-      // 4.跳转到首页
+      // 3.跳转到首页
       router.push(HOME_URL);
       ElNotification({
         title: getTimeState(),
-        message: "欢迎登录 Geeker-Admin",
+        message: "欢迎登录！",
         type: "success",
         duration: 3000
       });
@@ -139,4 +131,4 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "../index.scss";
-</style> -->
+</style>

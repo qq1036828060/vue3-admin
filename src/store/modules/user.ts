@@ -14,13 +14,12 @@ export const useUserStore = defineStore({
   }),
   getters: {},
   actions: {
-    // login
-    login(userInfo : Login.ResLogin) {
+    // 设置userInfo
+    setUserInfo(userInfo : Login.ResLogin) {
       this.$patch(userInfo);
     },
-    // loginOut
-    loginOut() {
-      // 清空所有state的数据
+    // 清空userInfo
+    clearUserInfo() {
       this.$reset();
     }
   },

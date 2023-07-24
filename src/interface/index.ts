@@ -52,7 +52,7 @@ export namespace Upload {
   }
 }
 
-
+/* GlobalState */
 export interface GlobalState {
   maximize: boolean;
   primary: string;
@@ -63,4 +63,10 @@ export interface GlobalState {
   tabs: boolean;
   tabsIcon: boolean;
   footer: boolean;
+}
+
+/* AuthState */
+export interface AuthState {
+  routeName: string;
+  authMenuList: Menu.MenuOptions[];
 }

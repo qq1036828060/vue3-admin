@@ -4,7 +4,7 @@ import { wrapperEnv } from "./build/getEnv";
 import { createProxy } from "./build/proxy";
 import { createVitePlugins } from "./build/plugins";
 
-import vue from '@vitejs/plugin-vue'
+// import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
@@ -12,8 +12,8 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, root);
   const viteEnv = wrapperEnv(env);
   return {
-    // plugins: createVitePlugins(viteEnv),
-    plugins: [vue()],
+    plugins: createVitePlugins(viteEnv),
+    // plugins: [vue()],
     root,
     resolve: {
       alias: {
